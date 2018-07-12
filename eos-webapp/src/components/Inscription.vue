@@ -18,7 +18,7 @@
           <div class="field has-text-left">
             <label class="label">Prénom</label>
             <div class="control has-icons-left has-icons-right">
-              <input id="firstname_input" v-on:keyup="validateName('first'), validSubmit" class="input" type="text" placeholder="Entrez votre prénom">
+              <input id="firstname_input" v-on:keyup="validateName('first')" class="input" type="text" placeholder="Entrez votre prénom">
               <span class="icon is-left">
                 <i class="fas fa-user"></i>
               </span>

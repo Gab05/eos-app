@@ -27,11 +27,21 @@
           </router-link>
         </div>
         <div class="navbar-item">
-          <router-link to="/connexion" class="button is-link is-inverted is-rounded">
+          <router-link to="/monprofil" class="button is-link is-inverted is-rounded">
             <span class="icon">
-              <i class="fas fa-sign-in-alt"></i>
+              <i class="fas fa-user-circle"></i>
             </span>
-            <span>Se connecter</span>
+            <span>Mon profil</span>
+          </router-link>
+        </div>
+        <div class="navbar-item" v-if="canShowLogoutButton()">
+          <router-link to="/">
+            <button @click="logoutScatter()" class="button is-rounded is-danger">
+              <span>Déconnexion</span>
+              <span class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+            </button>
           </router-link>
         </div>
       </div>
@@ -40,11 +50,27 @@
 </template>
 
 <script>
-export default {
-  name: 'Header',
-  data () {
-    return {
-    }
+import { mapGetters, mapState } from 'vuex'
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
+  computed: {
+    ...mapState(['scatter']),
+    ...mapGetters(['identity'])
+  }
+})
+export default class Header extends Vue {
+  scatter
+  identity
+
+  canShowLogoutButton () {
+    let canShow = false
+    if (this.identity) canShow = true
+    return canShow
+  }
+
+  logoutScatter () {
+    this.scatter.forgetIdentity()
   }
 }
 </script>
