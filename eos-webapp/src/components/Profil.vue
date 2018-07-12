@@ -9,7 +9,7 @@
               Scatter non détecté!
             </h1>
             <h2 class="subtitle">
-              Installez Scatter
+              <a href="https://get-scatter.com">Installez Scatter</a>
             </h2>
           </div>
         </div>
