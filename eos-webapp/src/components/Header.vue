@@ -50,13 +50,15 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 import { Component, Vue } from 'vue-property-decorator'
+import store from '../store'
 
 @Component({
   computed: {
     ...mapState(['scatter']),
-    ...mapGetters(['identity'])
+    ...mapGetters(['identity']),
+    ...mapActions(['resetContracts'])
   }
 })
 export default class Header extends Vue {
@@ -70,6 +72,7 @@ export default class Header extends Vue {
   }
 
   logoutScatter () {
+    store.dispatch('resetContracts')
     this.scatter.forgetIdentity()
   }
 }
