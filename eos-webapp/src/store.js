@@ -9,7 +9,7 @@ let store = new Vuex.Store({
     testnet: {
       protocol: 'http',
       blockchain: 'eos',
-      host: '35.203.108.9',
+      host: 'localhost',
       port: 8888,
       chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f'
     },
@@ -20,7 +20,8 @@ let store = new Vuex.Store({
       port: 80,
       chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
     },
-    contracts: null
+    contracts: null,
+    CADforEOS: 0
   },
 
   mutations: {
@@ -38,13 +39,18 @@ let store = new Vuex.Store({
     },
     resetContracts (state) {
       state.contracts = null
+    },
+    setCADforEOS (state, CADforEOS) {
+      state.CADforEOS = CADforEOS
     }
   },
 
   getters: {
     identity: (state) => state.scatter ? state.scatter.identity : null,
     network: (state) => state.network,
-    contracts: (state) => state.scatter.identity ? state.contracts : null
+    testnet: (state) => state.testnet,
+    contracts: (state) => state.scatter.identity ? state.contracts : null,
+    CADforEOS: (state) => state.CADforEOS
   },
 
   actions: {
@@ -54,6 +60,9 @@ let store = new Vuex.Store({
     setContracts ({ commit, state }, contracts) {
       commit('setContracts', contracts)
     },
+    setCADforEOS ({ commit, state }, CADforEOS) {
+      commit('setCADforEOS', CADforEOS)
+    },
     async setScatter ({ commit, state }, scatter) {
       commit('setScatter', scatter)
     },
@@ -61,7 +70,7 @@ let store = new Vuex.Store({
       if (!state.scatter) return false
       return state.scatter.getIdentity({
         personal: ['firstname', 'lastname'],
-        accounts: [state.network]
+        accounts: [state.testnet]
       })
     }
   }
