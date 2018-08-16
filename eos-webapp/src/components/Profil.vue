@@ -67,10 +67,20 @@
                     </span>
                   </div>
                   <div class="level-item">
-                    <p>Mensuel: <span class="has-text-success bold"> 10.00 EOS ({{ Number(35.40*CADforEOS).toFixed(2) }} $CAD)</span></p>
+                    <p>Mensuel: <span class="has-text-success bold"> 1.00 EOS ({{ Number(1*CADforEOS).toFixed(2) }} $CAD)</span></p>
                   </div>
                 </div>
                 <div class="level-right">
+                  <div class="level-item">
+                    <button class="button is-primary">
+                      <span class="icon is-large"><i class="fas fa-lg fa-hand-holding-usd"></i></span>
+                    </button>
+                  </div>
+                  <div class="level-item">
+                    <button class="button is-info">
+                      <span class="icon is-large"><i class="fas fa-lg fa-info-circle"></i></span>
+                    </button>
+                  </div>
                   <div class="level-item">
                     <button v-on:click="resignContract(c.id)" class="button is-danger">
                       <span class="icon is-large"><i class="fas fa-2x fa-times"></i></span>
@@ -83,7 +93,6 @@
 
           <div v-else>
             <p class="subtitle is-2 has-text-grey-lighter">Aucun contrat</p>
-            <span class="icon has-text-warning"><i class="fas fa-2x fa-exclamation-circle"></i></span>
           </div>
 
         </div>
@@ -95,8 +104,9 @@
         </div>
 
         <div class="section">
-          <button @click="show('new-contract-modal')" class="button is-info rounded">
-            Ajouter un contrat
+          <button @click="show('new-contract-modal')" class="button is-info is-rounded">
+            <span>Ajouter un contrat</span>
+            <span class="icon"><i class="fas fa-file-signature"></i></span>
           </button>
         </div>
 
@@ -118,7 +128,7 @@
                 <input class="input" type="number" id="new-year">
               </div>
               <div class="control content">
-                <div class="has-text-grey">Plaque</div>
+                <div class="has-text-grey">Immatriculation</div>
                 <input class="input" type="text" id="new-license">
               </div>
             </div>
@@ -179,15 +189,15 @@ export default class Profil extends Vue {
       this.firstname = this.identity.personal.firstname
       this.lastname = this.identity.personal.lastname
       this.accountName = this.identity.accounts[0].name
-      this.setCADforEOS()
+      setInterval(this.setCADforEOS, 5000)
       this.getContracts()
     }
     return paired
   }
 
   async getContracts () {
-    const httpEndpoint = 'http://' + this.testnet.host + ':' + this.testnet.port
-    const eos = Eos({ httpEndpoint, chainId: this.testnet.chainId })
+    const httpEndpoint = 'http://' + this.network.host + ':' + this.network.port
+    const eos = Eos({ httpEndpoint, chainId: this.network.chainId })
 
     if (!this.contracts) {
       eos.getTableRows({
@@ -251,7 +261,7 @@ export default class Profil extends Vue {
   }
 
   getEos () {
-    return this.scatter.eos(this.testnet, Eos, { chainId: this.testnet.chainId })
+    return this.scatter.eos(this.network, Eos, { chainId: this.network.chainId })
   }
 
   async getContract () {

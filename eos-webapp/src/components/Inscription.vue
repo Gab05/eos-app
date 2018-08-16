@@ -1,6 +1,6 @@
 <template>
   <div class="main-body">
-    <section class="hero is-info">
+    <section class="hero is-success">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -132,7 +132,7 @@
       </div>
       <div class="field">
         <div class="control has-text-centered">
-          <button id="submitButton" class="button is-success" disabled>
+          <button id="submitButton" class="button is-info is-rounded" disabled>
             <span>Continuer</span>
             <span class="icon is-right">
               <i class="fas fa-chevron-right"></i>

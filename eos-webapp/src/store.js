@@ -21,7 +21,7 @@ let store = new Vuex.Store({
       chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
     },
     contracts: null,
-    CADforEOS: 0
+    CADforEOS: undefined
   },
 
   mutations: {
@@ -70,7 +70,7 @@ let store = new Vuex.Store({
       if (!state.scatter) return false
       return state.scatter.getIdentity({
         personal: ['firstname', 'lastname'],
-        accounts: [state.testnet]
+        accounts: [state.network]
       })
     }
   }
